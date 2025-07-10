@@ -12,7 +12,6 @@ add alliance varchar(30);
 
 use transport;
 alter table airlines_info
-rename column airline_name to name,
 rename column founded_year to established_on,
 rename column fleet_size to total_aircrafts;
 
@@ -123,9 +122,6 @@ DELETE FROM country_info WHERE name IN ('Mexico', 'Brazil');
 DELETE FROM country_info WHERE language = 'Spanish' OR currency_name = 'Real';
 DELETE FROM country_info WHERE country_id NOT BETWEEN 5 AND 15;
 DELETE FROM country_info WHERE capital = 'Tokyo' AND population > 100000000;
-
-
-
 
 /*State*/
 create table state_info(state_id int, state_name varchar(30), country varchar(30), 
@@ -402,6 +398,74 @@ UPDATE product_info SET stock = 0 WHERE origin_country NOT IN ('India', 'USA');
 
 UPDATE hospital_info SET disease = 'Recovered' WHERE age BETWEEN 30 AND 35;
 UPDATE hospital_info SET doctor = 'Dr. Naik' WHERE disease IN ('Migraine', 'Back Pain');
+
+
+CREATE TABLE employee_info (
+    emp_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    gender CHAR(1),
+    dob DATE,
+    email VARCHAR(100),
+    phone VARCHAR(15),
+    department VARCHAR(50),
+    designation VARCHAR(50),
+    salary DECIMAL(10,2)
+);
+
+INSERT INTO employee_info 
+(emp_id, first_name, last_name, gender, dob, email, phone, department, designation, salary)
+VALUES 
+(1, 'Anita', 'Sharma', 'F', '1990-05-20', 'anita.sharma@example.com', '9876543210', 'HR', 'Manager', 60000.00),
+(2, 'Raj', 'Verma', 'M', '1985-11-15', 'raj.verma@example.com', '9123456780', 'IT', 'Software Engineer', 75000.00),
+(3, 'Meena', 'Kumar', 'F', '1992-08-10', 'meena.kumar@example.com', '8899001122', 'Finance', 'Analyst', 55000.00),
+(4, 'Amit', 'Joshi', 'M', '1988-02-28', 'amit.joshi@example.com', '9988776655', 'Marketing', 'Executive', 48000.00),
+(5, 'Sneha', 'Patil', 'F', '1995-12-05', 'sneha.patil@example.com', '9876123456', 'IT', 'UI/UX Designer', 62000.00),
+(6, 'Vikram', 'Rao', 'M', '1983-06-17', 'vikram.rao@example.com', '9786234512', 'Sales', 'Sales Lead', 58000.00),
+(7, 'Priya', 'Naik', 'F', '1991-09-25', 'priya.naik@example.com', '9765432109', 'Admin', 'Admin Executive', 45000.00),
+(8, 'Suresh', 'Pillai', 'M', '1989-03-30', 'suresh.pillai@example.com', '9678123456', 'Finance', 'Accountant', 53000.00),
+(9, 'Kavya', 'Shetty', 'F', '1993-07-19', 'kavya.shetty@example.com', '9543216780', 'IT', 'Backend Developer', 70000.00),
+(10, 'Nikhil', 'Desai', 'M', '1994-01-08', 'nikhil.desai@example.com', '9321678450', 'Support', 'Tech Support', 40000.00);
+
+SELECT first_name AS fname, last_name AS lname, salary AS sal FROM employee_info;
+SELECT COUNT(*) AS no_of_rows FROM employee_info;
+SELECT SUM(salary) AS total_sal FROM employee_info;
+SELECT MAX(salary) AS max_sal FROM employee_info;
+SELECT MIN(salary) AS min_sal FROM employee_info;
+
+SELECT department, MAX(salary) AS max_sal
+FROM employee_info
+GROUP BY department
+HAVING department = 'IT';
+
+SELECT department, SUM(salary) AS total_sal 
+FROM employee_info 
+GROUP BY department 
+HAVING department = 'Finance';
+
+SELECT department, MAX(salary) AS max_sal 
+FROM employee_info
+GROUP BY department
+HAVING department = 'HR';
+
+SELECT department, MIN(salary) AS min_sal 
+FROM employee_info 
+GROUP BY department 
+HAVING MIN(salary) > 3000;
+
+SELECT department, SUM(salary) AS total_sal 
+FROM employee_info 
+GROUP BY department;
+
+
+
+
+
+
+
+
+
+
 
 
 
